@@ -9,6 +9,8 @@ import cors from "cors"
 import { __prod__ } from "./constants"
 import { UserResolver } from "./resolvers/User"
 import { AppDataSource } from "./utils/db"
+import { NestFactory } from "@nestjs/core"
+import { AppModule } from "./app.module"
 
 export type IContext = {
   req: Request<any> & { session: any }
@@ -82,6 +84,11 @@ const main = async () => {
 
   app.listen(8000, () => {
     console.log("server started at localhost:8000")
+  })
+
+  const nest = await NestFactory.create(AppModule)
+  nest.listen(8001, () => {
+    console.log("nest started at localhost:8001")
   })
 }
 
